@@ -1,0 +1,149 @@
+class node:
+    def __init__(self,value):
+        self.value=value
+        self.next=None
+
+class single_linked_list:
+    def __init__(self):
+        self.head=None
+
+    def create(self,value):
+        newnode=node(value)
+        if self.head ==None:
+            print("\ncreating a new linked list ")
+            self.head=newnode
+        else:
+            print("\nlist is already created so adding this number to the list ")
+
+            temp=self.head
+            while temp.next!=None:
+                temp=temp.next
+            temp.next=newnode
+    def insert_at_begin(self,value):
+        newnode=node(value)
+        if self.head==None:
+            self.head=newnode
+        else:
+            newnode.next=self.head
+            self.head=newnode
+    def insert_at_end(self,value):
+        newnode = node(value)
+        if self.head == None:
+            self.head = newnode
+        else:
+            temp=self.head
+            while temp.next!=None:
+                temp=temp.next
+            temp.next=newnode
+    def check(self,value):
+        temp=self.head
+        count=0
+        if temp==None:
+            print("no list is present")
+        else:
+            while temp!=None:
+                if temp.value ==value:
+                    return count
+                else:
+                    count+=1
+                    temp=temp.next
+            return -1
+    def display(self):
+        temp=self.head
+        if temp==None:
+            print("\nno list is present ")
+        else:
+            while temp!=None:
+                print(temp.value)
+                temp=temp.next
+    def before(self,value,element):
+        newnode=node(value)
+        temp =self.head
+        c=0
+        if temp ==None:
+            print("no linked list  is present")
+        else:
+            while temp != None:
+                if temp.value == element:
+                    newnode.next=self.head
+                    self.head=newnode
+                    c+=1
+                    break
+                elif temp.next.value ==element:
+                    newnode.next=temp.next
+                    temp.next=newnode
+                    c+=1
+                    break
+                else:
+                    temp = temp.next
+            if c!=1:
+                print(f'there is no {element} in the list ')
+    def after(self,value,element):
+        newnode=node(value)
+        temp =self.head
+        c=0
+        if temp ==None:
+            print("no linked list  is present")
+        else:
+            while temp != None:
+                if temp.value == element:
+                    newnode.next=temp.next
+                    temp=newnode
+                    c+=1
+                    break
+                temp=temp.next
+
+            if c!=1:
+                print(f'there is no {element} in the list ')
+    def del_first(self):
+        temp=self.head
+        if temp ==None:
+            print("\nno list is present")
+        else:
+            self.head=temp.next
+    def del_last(self):
+        temp=self.head
+        if self.head == None:
+            print("\n no list is present ")
+        else:
+            while temp.next.next !=None :
+                temp=temp.next
+            temp.next=None
+obj=single_linked_list()
+while True:
+    n=int(input(" 1.to create the linked list \n 2.to display the linked list \n 3.to insert at the beginning \n 4.to insert at the end of the list \n 5.t check element is present or not \n 6.To insert in the middle \n 7.to delete at first \n 8.to delete at last \n 9.to exit from the program",))
+    if n==1:
+        value=int(input("enter the number "))
+        obj.create(value)
+    elif n==2:
+        obj.display()
+    elif n==3:
+        value=int(input("enter the number"))
+        obj.insert_at_begin(value)
+    elif n==4:
+        value=int(input("enter the number "))
+        obj.insert_at_end(value)
+    elif n==5:
+        value=int(input("enter the value that you want to check"))
+        check= obj.check(value)
+        if check>=0:
+            print(f'element fount at {check+1} index ')
+        else:
+            print("element not found")
+    elif n==6:
+        value=int(input("enter the number "))
+        choice=int(input("1.To insert before one element \n 2.To insert after one element "))
+        if choice ==1:
+            element=int(input("before which element you want insert "))
+            obj.before(value,element)
+        elif choice ==2:
+            element = int(input("after which element you want insert "))
+            obj.after(value,element)
+        else:
+            print("enter proper value ")
+    elif n == 7:
+        obj.del_first()
+    elif n == 8:
+        obj.del_last()
+    else:
+        break
